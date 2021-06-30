@@ -75,11 +75,34 @@ if "in" in cmd: #for namespace filter
         if 'pods' in command or 'pod' in command :
             print(subprocess.getoutput(f"kubectl describe pods -n {namespace} --kubeconfig admin.conf"))
 
-        if 'service' in command or 'services' in command or 'svc' in command:
+        elif 'service' in command or 'services' in command or 'svc' in command:
             print(subprocess.getoutput(f"kubectl describe svc -n {namespace} --kubeconfig admin.conf"))
 
-        if 'deployment' in command or 'deploy' in command or 'deployments' in command:
+        elif 'deployment' in command or 'deploy' in command or 'deployments' in command:
             print(subprocess.getoutput(f"kubectl describe deploy -n {namespace} --kubeconfig admin.conf"))
+
+#----------------------------------------------expose-----------------------------------------------------
+
+    elif 'expose' in command: #eg-> expose pod <name> on <port no>
+        if 'pod' in command:
+            operation,detail = command.split("pod")
+            pod_name,port = command.split('on')
+            print(subprocess.getoutput(f'kubectl expose pod {pod_name} --port={port} --type=Nodeport')
+        
+        elif 'deployment' in command:
+            operation,detail = command.split("deployment")
+            deploy_name,port = command.split('on')
+            print(subprocess.getoutput(f'kubectl expose deployment {deploy_name} --port={port} --type=Nodeport')
+
+#-------------------------------------scaling-------------------------------------------------------------------
+
+    elif 'scale' in command: #scale deployment <name> by <no>
+        if 'deployment' in command:
+            operation,detail = command.split('deployment')
+            deploy_name,no = detail.split('by')
+            print(subprocess.getoutput(f'kubectl scale deployment {deploy_name} --replicas={no}')
+
+        
 #-------------------------------default namespace --------------------------------------------------------------
 
 elif "get" in cmd or "show" in cmd: #see resources in  default namespace
@@ -129,6 +152,9 @@ elif 'remove' in cmd or 'delete' in cmd or 'del' in cmd: #delete resources in de
         else:
             operation,ns_name = cmd.split('namespace')
             print(subprocess.getoutput(f'kubectl delete namespace {ns_name} --kubeconfig admin.conf'))
+    
+    elif 'everything' in cmd or 'all' in cmd:
+            print(subprocess.getoutput(f'kubectl delete --all all --kubeconfig admin.conf'))
 
 elif 'create' in cmd or 'run' in cmd or 'launch' in cmd: #launch resources in a namespace
         #eg-> launch pod <pod-name> with <img-name> 
