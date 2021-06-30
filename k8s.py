@@ -105,7 +105,7 @@ elif 'remove' in cmd or 'delete' in cmd or 'del' in cmd: #delete resources in de
             print(subprocess.getoutput(f'kubectl delete --all pods  --kubeconfig admin.conf'))
         else:
             operation , pod_name = cmd.split('pod')
-            print(subprocess.getoutput(f'kubectl delete {pod_name}  --kubeconfig admin.conf'))
+            print(subprocess.getoutput(f'kubectl delete po {pod_name}  --kubeconfig admin.conf'))
         
 
     elif 'service' in cmd or 'services' in cmd: #delete sevices in default namespac
@@ -113,7 +113,7 @@ elif 'remove' in cmd or 'delete' in cmd or 'del' in cmd: #delete resources in de
             print(subprocess.getoutput(f'kubectl delete --all svc --kubeconfig admin.conf'))
         else:
             operation , svc_name = cmd.split('service')
-            print(subprocess.getoutput(f'kubectl delete {svc_name} --kubeconfig admin.conf'))
+            print(subprocess.getoutput(f'kubectl delete svc {svc_name} --kubeconfig admin.conf'))
 
 
     elif 'deployment' in cmd or 'deployments' in cmd or 'deploy' in cmd: #delete deployments  in default namespace
@@ -121,14 +121,14 @@ elif 'remove' in cmd or 'delete' in cmd or 'del' in cmd: #delete resources in de
             print(subprocess.getoutput(f'kubectl delete --all deploy --kubeconfig admin.conf'))
         else:
             operation , deploy_name = cmd.split('deployment')
-            print(subprocess.getoutput(f'kubectl delete {deploy_name}  --kubeconfig admin.conf'))
+            print(subprocess.getoutput(f'kubectl delete deploy {deploy_name}  --kubeconfig admin.conf'))
 
     elif 'namespace' in cmd or 'namespaces' in cmd or 'ns' in cmd: #delete namespaces
         if 'all' in cmd:
             print(subprocess.getoutput(f'kubectl delete --all namespace --kubeconfig admin.conf'))
         else:
             operation,ns_name = cmd.split('namespace')
-            print(subprocess.getoutput(f'kubectl delete {ns_name} --kubeconfig admin.conf'))
+            print(subprocess.getoutput(f'kubectl delete namespace {ns_name} --kubeconfig admin.conf'))
 
 elif 'create' in cmd or 'run' in cmd or 'launch' in cmd: #launch resources in a namespace
         #eg-> launch pod <pod-name> with <img-name> 
