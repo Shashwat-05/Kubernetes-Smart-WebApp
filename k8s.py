@@ -7,6 +7,7 @@ print("content-type: text/html")
 print()
 
 f = cgi.FieldStorage()
+
 cmd = f.getvalue("x")
 
 #--------------------------------------particular---namespace------------------------------------------------------------------
