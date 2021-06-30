@@ -1,4 +1,3 @@
-
 function terminal() {
 	var data = "cmdin";
 	var url = "http://192.168.29.193/cgi-bin/k8s.py?x="
