@@ -86,13 +86,13 @@ if "in" in cmd: #for namespace filter
     elif 'expose' in command: #eg-> expose pod <name> on <port no>
         if 'pod' in command:
             operation,detail = command.split("pod")
-            pod_name,port = command.split('on')
-            print(subprocess.getoutput(f'kubectl expose pod {pod_name} --port={port} --type=Nodeport')
+            pod_name,port = detail.split('on')
+            print(subprocess.getoutput(f'kubectl expose pod {pod_name} -n {namespace} --port={port} --type=Nodeport'))
         
         elif 'deployment' in command:
             operation,detail = command.split("deployment")
-            deploy_name,port = command.split('on')
-            print(subprocess.getoutput(f'kubectl expose deployment {deploy_name} --port={port} --type=Nodeport')
+            deploy_name,port = detail.split('on')
+            print(subprocess.getoutput(f'kubectl expose deployment {deploy_name} -n {namespace} --port={port} --type=Nodeport'))
 
 #-------------------------------------scaling-------------------------------------------------------------------
 
@@ -100,7 +100,7 @@ if "in" in cmd: #for namespace filter
         if 'deployment' in command:
             operation,detail = command.split('deployment')
             deploy_name,no = detail.split('by')
-            print(subprocess.getoutput(f'kubectl scale deployment {deploy_name} --replicas={no}')
+            print(subprocess.getoutput(f'kubectl scale deployment {deploy_name} -n {namespace} --replicas={no}'))
 
         
 #-------------------------------default namespace --------------------------------------------------------------
@@ -180,5 +180,26 @@ elif "describe" in cmd: #eg- describe pods
 
     if 'deployment' in cmd or 'deploy' in cmd or 'deployments' in cmd:
         print(subprocess.getoutput("kubectl describe deploy --kubeconfig admin.conf"))
+
+
+elif 'expose' in cmd: #eg-> expose pod <name> on <port no>
+    if 'pod' in cmd:
+        operation,detail = cmd.split("pod")
+        pod_name,port = detail.split('on')
+        print(subprocess.getoutput(f'kubectl expose pod {pod_name} --port={port} --type=Nodeport'))
+        
+    elif 'deployment' in cmd:
+        operation,detail = cmd.split("deployment")
+        deploy_name,port = detail.split('on')
+        print(subprocess.getoutput(f'kubectl expose deployment {deploy_name} --port={port} --type=Nodeport'))
+
+#-------------------------------------scaling-------------------------------------------------------------------
+
+elif 'scale' in command: #scale deployment <name> by <no>
+    if 'deployment' in command:
+        operation,detail = command.split('deployment')
+        deploy_name,no = detail.split('by')
+        print(subprocess.getoutput(f'kubectl scale deployment {deploy_name} -n {namespace} --replicas={no}'))
+
 else:
     print(subprocess.getoutput(cmd+" --kubeconfig admin.conf"))
