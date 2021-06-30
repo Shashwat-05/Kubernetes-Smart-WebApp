@@ -33,7 +33,7 @@ if "in" in cmd: #for namespace filter
                 print(subprocess.getoutput(f'kubectl delete --all pods -n {namespace} --kubeconfig admin.conf'))
             else:
                 operation , pod_name = command.split('pod')
-                print(subprocess.getoutput(f'kubectl delete {pod_name} -n {namespace} --kubeconfig admin.conf'))
+                print(subprocess.getoutput(f'kubectl delete po {pod_name} -n {namespace} --kubeconfig admin.conf'))
         
 
         elif 'service' in command or 'services' in command: #delete sevices in a namespace
@@ -41,7 +41,7 @@ if "in" in cmd: #for namespace filter
                 print(subprocess.getoutput(f'kubectl delete --all svc -n {namespace} --kubeconfig admin.conf'))
             else:
                 operation , svc_name = command.split('service')
-                print(subprocess.getoutput(f'kubectl delete {svc_name} -n {namespace} --kubeconfig admin.conf'))
+                print(subprocess.getoutput(f'kubectl delete svc {svc_name} -n {namespace} --kubeconfig admin.conf'))
 
 
         elif 'deployment' in command or 'deployments' in command or 'deploy' in command: #delete deployments  in a namespace
@@ -49,7 +49,7 @@ if "in" in cmd: #for namespace filter
                 print(subprocess.getoutput(f'kubectl delete --all deploy -n {namespace} --kubeconfig admin.conf'))
             else:
                 operation , deploy_name = command.split('deployment')
-                print(subprocess.getoutput(f'kubectl delete {deploy_name} -n {namespace} --kubeconfig admin.conf'))
+                print(subprocess.getoutput(f'kubectl delete deploy {deploy_name} -n {namespace} --kubeconfig admin.conf'))
 
 #------------------------------------------------create----------------------------------------------------------------
 
