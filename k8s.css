@@ -6,7 +6,6 @@
   scroll-behavior: smooth;
 }
 
-
 .navbar {
   background: #131313;
   height: 80px;
@@ -44,6 +43,8 @@
   text-decoration: none;
   font-size: 2rem;
 }
+
+
 
 /* Hero Section : starting black lback space */
 .hero {
@@ -92,7 +93,7 @@
 .input_bar {
   font-size: medium;
   font-style: italic;
-  width: 42%;
+  width: 200%;
 
 }
 .main__btn {
