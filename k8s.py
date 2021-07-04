@@ -55,18 +55,16 @@ if "in" in cmd: #for namespace filter
 
     elif 'create' in command or 'run' in command or 'launch' in command: #launch resources in a namespace
         #eg-> launch pod <pod-name> with <img-name> in <namespace>
-        if 'pod'  in command and 'image' in command: #launch a pod  in a namespace
+        if 'pod'  in command and 'with' in command: #launch a pod  in a namespace
             operation,pod_img = command.split('pod')
             pod_name,img = pod_img.split('with')
-            no_use,img_name = img.split('image')
-            print(subprocess.getoutput(f'kubectl run  {pod_name} --image={img_name} -n {namespace} --kubeconfig admin.conf'))
+            print(subprocess.getoutput(f'kubectl run {pod_name} --image {img} -n {namespace} --kubeconfig admin.conf'))
         
 
-        elif 'deployment' in command and 'image' in command: #launch deployments  in a namespace
+        elif 'deployment' in command and 'with' in command: #launch deployments  in a namespace
             operation,deploy_img = command.split('deployment')
             deploy_name,img = deploy_img.split('with')
-            no_use,img_name = img.split('image')
-            print(subprocess.getoutput(f'kubectl create  {deploy_name} --image={img_name} -n {namespace} --kubeconfig admin.conf'))
+            print(subprocess.getoutput(f'kubectl create deployment  {deploy_name} --image {img} -n {namespace} --kubeconfig admin.conf'))
 
 #--------------------------------------------------describe------------------------------------------------------
 
@@ -158,18 +156,20 @@ elif 'remove' in cmd or 'delete' in cmd or 'del' in cmd: #delete resources in de
 
 elif 'create' in cmd or 'run' in cmd or 'launch' in cmd: #launch resources in a namespace
         #eg-> launch pod <pod-name> with <img-name> 
-    if 'pod'  in cmd and 'image' in cmd: #launch a pod  in a namespace
+    if 'pod'  in cmd and 'with' in cmd: #launch a pod  in a namespace
         operation,pod_img = cmd.split('pod')
         pod_name,img = pod_img.split('with')
-        no_use,img_name = img.split('image')
-        print(subprocess.getoutput(f'kubectl run  {pod_name} --image={img_name} --kubeconfig admin.conf'))
+        print(subprocess.getoutput(f'kubectl run  {pod_name} --image {img} --kubeconfig admin.conf'))
     
 
-    elif 'deployment' in cmd and 'image' in cmd: #launch deployments  in a namespace
+    elif 'deployment' in cmd and 'with' in cmd: #launch deployments  in a namespace
         operation,deploy_img = cmd.split('deployment')
         deploy_name,img = deploy_img.split('with')
-        no_use,img_name = img.split('image')
-        print(subprocess.getoutput(f'kubectl create  {deploy_name} --image={img_name} --kubeconfig admin.conf'))       
+        print(subprocess.getoutput(f'kubectl create  deployment {deploy_name} --image {img} --kubeconfig admin.conf'))
+
+    elif 'namespace' in cmd :
+        op,ns = cmd.split('namespace')
+        print(subprocess.getoutput(f'kubectl create namespace {ns} --kubeconfig admin.conf'))
 
 elif "describe" in cmd: #eg- describe pods
     if 'pods' in cmd or 'pod' in cmd :
