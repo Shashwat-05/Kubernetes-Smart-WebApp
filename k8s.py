@@ -101,7 +101,7 @@ if "in" in cmd: #for namespace filter
             print(subprocess.getoutput(f'kubectl scale deployment {deploy_name} -n {namespace} --replicas={no}'))
 
         
-#-------------------------------default namespace --------------------------------------------------------------
+#=======================================default namespace ========================================================================
 
 elif "get" in cmd or "show" in cmd: #see resources in  default namespace
     #eg -> show pods 
@@ -119,6 +119,7 @@ elif "get" in cmd or "show" in cmd: #see resources in  default namespace
         print(subprocess.getoutput("kubectl get deployments --kubeconfig admin.conf"))
 
 
+#--------------------------------------------remove----------------------------------------------------
 elif 'remove' in cmd or 'delete' in cmd or 'del' in cmd: #delete resources in default namespace
     #eg-> remove pod <name> or remove all pods
     if 'pod' in cmd or 'pods' in cmd: #delete pods in default  namespace
@@ -154,14 +155,15 @@ elif 'remove' in cmd or 'delete' in cmd or 'del' in cmd: #delete resources in de
     elif 'everything' in cmd or 'all' in cmd:
             print(subprocess.getoutput(f'kubectl delete --all all --kubeconfig admin.conf'))
 
+#-------------------------------------------create-----------------------------------------------
 elif 'create' in cmd or 'run' in cmd or 'launch' in cmd: #launch resources in a namespace
         #eg-> launch pod <pod-name> with <img-name> 
+    
     if 'pod'  in cmd and 'with' in cmd: #launch a pod  in a namespace
         operation,pod_img = cmd.split('pod')
         pod_name,img = pod_img.split('with')
-        print(subprocess.getoutput(f'kubectl run  {pod_name} --image {img} --kubeconfig admin.conf'))
+        print(subprocess.getoutput(f'kubectl run {pod_name} --image {img}  --kubeconfig admin.conf'))
     
-
     elif 'deployment' in cmd and 'with' in cmd: #launch deployments  in a namespace
         operation,deploy_img = cmd.split('deployment')
         deploy_name,img = deploy_img.split('with')
@@ -171,6 +173,8 @@ elif 'create' in cmd or 'run' in cmd or 'launch' in cmd: #launch resources in a 
         op,ns = cmd.split('namespace')
         print(subprocess.getoutput(f'kubectl create namespace {ns} --kubeconfig admin.conf'))
 
+
+#---------------------------------------describe-----------------------------------------
 elif "describe" in cmd: #eg- describe pods
     if 'pods' in cmd or 'pod' in cmd :
         print(subprocess.getoutput("kubectl describe pods --kubeconfig admin.conf"))
@@ -181,6 +185,7 @@ elif "describe" in cmd: #eg- describe pods
     if 'deployment' in cmd or 'deploy' in cmd or 'deployments' in cmd:
         print(subprocess.getoutput("kubectl describe deploy --kubeconfig admin.conf"))
 
+#----------------------------------------expose - in -default---------------------------------------------
 
 elif 'expose' in cmd: #eg-> expose pod <name> on <port no>
     if 'pod' in cmd:
@@ -195,13 +200,13 @@ elif 'expose' in cmd: #eg-> expose pod <name> on <port no>
 
 #-------------------------------------scaling-------------------------------------------------------------------
 
-elif 'scale' in command: #scale deployment <name> by <no>
-    if 'deployment' in command:
-        operation,detail = command.split('deployment')
+elif 'scale' in cmd: #scale deployment <name> by <no>
+    if 'deployment' in cmd:
+        operation,detail = cmd.split('deployment')
         deploy_name,no = detail.split('by')
-        print(subprocess.getoutput(f'kubectl scale deployment {deploy_name} -n {namespace} --replicas={no}'))
+        print(subprocess.getoutput(f'kubectl scale deployment {deploy_name}  --replicas={no} --kubeconfig admin.conf'))
 
-elif 'cluster' in command and 'about' in command:
+elif 'cluster' in cmd and 'about' in cmd:
     print(subprocess.getoutput('kubectl cluster-info --kubeconfig admin.conf'))
 else:
     print(subprocess.getoutput(cmd+" --kubeconfig admin.conf"))
