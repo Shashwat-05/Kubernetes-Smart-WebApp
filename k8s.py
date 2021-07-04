@@ -201,5 +201,7 @@ elif 'scale' in command: #scale deployment <name> by <no>
         deploy_name,no = detail.split('by')
         print(subprocess.getoutput(f'kubectl scale deployment {deploy_name} -n {namespace} --replicas={no}'))
 
+elif 'cluster' in command and 'about' in command:
+    print(subprocess.getoutput('kubectl cluster-info --kubeconfig admin.conf'))
 else:
     print(subprocess.getoutput(cmd+" --kubeconfig admin.conf"))
