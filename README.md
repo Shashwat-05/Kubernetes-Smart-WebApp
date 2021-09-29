@@ -5,9 +5,9 @@ The backend is written on python which is capable of understanding the keywords 
 
 *Also other services like **Docker and Linux Terminal** can also be used similarly via a prompt bar.*
 
-* Can see the demo here : https://www.linkedin.com/posts/shashwat-pathak_kubernetes-worldrecordholder-training-activity-6817829806462394368-sD_R
+* Can see the [demo here](https://www.linkedin.com/posts/shashwat-pathak_kubernetes-worldrecordholder-training-activity-6817829806462394368-sD_R)
 
-* Connect on LinkedIN : https://www.linkedin.com/in/shashwat-pathak/
+* Connect on [LinkedIN](https://www.linkedin.com/in/shashwat-pathak/)
 
-* Docker & Linux GitHub project - https://github.com/shashwat052000/docker-UI-js-html-css-python/tree/master
+* [Docker & Linux GitHub project](https://github.com/shashwat052000/docker-UI-js-html-css-python/tree/master)
 
